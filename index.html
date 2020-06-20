@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8" name="description">
+        <title>Sorting Algorithm Visualisation</title>
+
+        <link rel="stylesheet" href=".lib/bootstrap/bootstrap-4.5.0-dist/css/bootstrap.css">
+        <script src=".lib/jquery/jquery-3.5.1.js"></script>
+        <script src=".lib/bootstrap/bootstrap-4.5.0-dist/js/bootstrap.js"></script>
+
+        <link rel="stylesheet" href="styles/main_style.css">
+        <script src="scripts/sorting_algrotihms.js"></script>
+        <script src="scripts/sorting_visualizer.js"></script>
+
+        <!-- bootstrap navbar for selection of sorting algorithm -->
+        <nav id="second_nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #1E1E38;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item"> <a id="bubble_btn" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
+                <li class="nav-item"> <a id="insert_btn" class="nav-link" href="#"> INSERTION SORT </a> </li>
+                <li class="nav-item"> <a id="select_btn" class="nav-link" href="#"> SELECTION SORT </a> </li>
+                <li class="nav-item"> <a id="cocktail_btn" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
+             </ul>
+            </div>
+        </nav>  
+
+    </head>
+
+    <body>
+
+        <div class="background">
+
+            <!-- bootstrap grid layout for settings and visualisation -->
+            <div class="row">
+
+                <!-- settings for sorting visualisation -->
+                <div id=settings_box class="col-3 box">
+                    
+                    <h2 id='sort_header'> BUBBLE SORT </h2>
+
+                    <label for='#arrsize_sel'> Amount of elements </label>
+                    <input id='arrsize_sel' class='form-control form_distance' type='number' value="50"/>
+
+                    <label for='#start_sel'> Arrangement of elements </label>
+                    <select id='start_sel' class='form-control form_distance'>
+                        <option value='random'> Random </option>
+                        <option value='ascending'> Ascending </option>
+                        <option value='descending'> Descending </option>
+                    </select>
+
+                    <button id="create_btn" type="submit" class="btn btn-primary form-control form_distance"> Create array </button>
+                    
+                    <label for='#interval_sel'> Interval of sorting steps </label>
+                    <input id='interval_sel' class='form-control form_distance' type='number' value="100"/>
+
+                    <!--
+                    <label for="#volume_slide">Lautstärke</label>
+                    <input  id="volume_slide" type="range" min="0" max="100" value="0" class="custom-range">
+                    -->
+
+                    <button id="sort_btn" type="submit" class="btn btn-primary form-control form_distance"> Start sorting </button>
+                    
+                    <button id="stop_btn" type="submit" class="btn btn-primary form-control form_distance"> Stop sorting </button>                
+
+                    <label id='comp_label' class='form-control form_distance'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
+                    <label id='acc_label' class='form-control form_distance'> Amount array accesses: 0 </label>
+
+                </div>
+
+                <!-- actual visualisation with svg placeholder -->
+                <div id=svg_box class="col box">
+                  <svg id="bar_svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+            </div>   
+
+        </div>
+
+    </body>
+
+</html>
