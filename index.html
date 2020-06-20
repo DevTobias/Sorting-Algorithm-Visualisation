@@ -4,14 +4,16 @@
     <head>
 
         <meta charset="utf-8" name="description">
-        <title>Sorting Algorithm Visualisation</title>
+        <title data-translate="sorting_algorithm_visualisation">Sorting Algorithm Visualisation</title>
 
         <link rel="stylesheet" href=".lib/bootstrap/bootstrap-4.5.0-dist/css/bootstrap.css">
         <script src=".lib/jquery/jquery-3.5.1.js"></script>
         <script src=".lib/bootstrap/bootstrap-4.5.0-dist/js/bootstrap.js"></script>
 
         <link rel="stylesheet" href="styles/main_style.css">
-        <script src="scripts/sorting_algrotihms.js"></script>
+        <script src="scripts/lang/dict.js"></script>
+        <script src="scripts/lang/language_changer.js"></script>
+        <script src="scripts/sorting_algorithms.js"></script>
         <script src="scripts/sorting_visualizer.js"></script>
 
         <!-- bootstrap navbar for selection of sorting algorithm -->
@@ -22,17 +24,19 @@
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item dropdown">            
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Language </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#"> English </a>
-                            <a class="dropdown-item" href="#"> Deutsch </a>
-                        </div>
-                    </li>
                     <li class="nav-item"> <a id="bubble_btn" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
                     <li class="nav-item"> <a id="insert_btn" class="nav-link" href="#"> INSERTION SORT </a> </li>
                     <li class="nav-item"> <a id="select_btn" class="nav-link" href="#"> SELECTION SORT </a> </li>
                     <li class="nav-item"> <a id="cocktail_btn" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <li class="nav-item dropleft">            
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Language </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item active" id="drop_english" onclick="english_click()" href="#"> English </a>
+                            <a class="dropdown-item" id="drop_german" onclick="german_click()" href="#"> Deutsch </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav> 
@@ -51,19 +55,19 @@
                     
                     <h2 id='sort_header'> BUBBLE SORT </h2>
 
-                    <label for='#arrsize_sel'> Amount of elements </label>
+                    <label for='#arrsize_sel' data-translate="amount_of_elements"> Amount of elements </label>
                     <input id='arrsize_sel' class='form-control form_distance' type='number' value="50"/>
 
-                    <label for='#start_sel'> Arrangement of elements </label>
+                    <label for='#start_sel' data-translate="arrangement_of_elements"> Arrangement of elements </label>
                     <select id='start_sel' class='form-control form_distance'>
-                        <option value='random'> Random </option>
-                        <option value='ascending'> Ascending </option>
-                        <option value='descending'> Descending </option>
+                        <option value='random' data-translate="random"> Random </option>
+                        <option value='ascending' data-translate='ascending' > Ascending </option>
+                        <option value='descending' data-translate='descending' > Descending </option>
                     </select>
 
-                    <button id="create_btn" type="submit" class="btn btn-primary form-control form_distance"> Create array </button>
+                    <button id="create_btn" type="submit" class="btn btn-primary form-control form_distance" data-translate='create_array'> Create array </button>
                     
-                    <label for='#interval_sel'> Interval of sorting steps </label>
+                    <label for='#interval_sel' data-translate='interval_of_sorting_steps'> Interval of sorting steps </label>
                     <input id='interval_sel' class='form-control form_distance' type='number' value="100"/>
 
                     <!--
@@ -71,11 +75,11 @@
                     <input  id="volume_slide" type="range" min="0" max="100" value="0" class="custom-range">
                     -->
 
-                    <button id="sort_btn" type="submit" class="btn btn-primary form-control form_distance"> Start sorting </button>           
-                    <button id="stop_btn" type="submit" class="btn btn-primary form-control form_distance"> Stop sorting </button>                
+                    <button id="sort_btn" type="submit" class="btn btn-primary form-control form_distance" data-translate='start_sorting'> Start sorting </button>           
+                    <button id="stop_btn" type="submit" class="btn btn-primary form-control form_distance" data-translate='stop_sorting'> Stop sorting </button>                
 
-                    <label id='comp_label' class='form-control form_distance'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
-                    <label id='acc_label' class='form-control form_distance'> Amount array accesses: 0 </label>
+                    <label id='comp_label' class='form-control form_distance' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
+                    <label id='acc_label' class='form-control form_distance' data-translate='amount_array_accesses'> Amount array accesses: 0 </label>
 
                 </div>
 
@@ -85,7 +89,7 @@
                 </div>
 
             </div>   
-
+            
         </div>
 
     </body>
