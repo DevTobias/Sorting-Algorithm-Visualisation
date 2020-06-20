@@ -3,15 +3,19 @@
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #F4F4F8;
+    min-height: 100vh;
 }
 
-label {
+.max_height {
+  height: 90vh;
+}
+
+h2, label {
     color: #000000;
 }
 
 h2 {
-    color: #000000;
     padding-bottom: 2em;
 }
 
@@ -39,8 +43,8 @@ h2 {
 }
 
 .btn {
-    background-color: #1E1E38;
-    border-color: #1E1E38;
+    background-color: #5941A9;
+    border-color: #5941A9;
 }
 
 .background {

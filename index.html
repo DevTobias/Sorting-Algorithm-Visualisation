@@ -15,29 +15,36 @@
         <script src="scripts/sorting_visualizer.js"></script>
 
         <!-- bootstrap navbar for selection of sorting algorithm -->
-        <nav id="second_nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #1E1E38;">
+        <nav id="second_nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #5941A9;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item"> <a id="bubble_btn" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
-                <li class="nav-item"> <a id="insert_btn" class="nav-link" href="#"> INSERTION SORT </a> </li>
-                <li class="nav-item"> <a id="select_btn" class="nav-link" href="#"> SELECTION SORT </a> </li>
-                <li class="nav-item"> <a id="cocktail_btn" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
-             </ul>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">            
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Language </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#"> English </a>
+                            <a class="dropdown-item" href="#"> Deutsch </a>
+                        </div>
+                    </li>
+                    <li class="nav-item"> <a id="bubble_btn" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
+                    <li class="nav-item"> <a id="insert_btn" class="nav-link" href="#"> INSERTION SORT </a> </li>
+                    <li class="nav-item"> <a id="select_btn" class="nav-link" href="#"> SELECTION SORT </a> </li>
+                    <li class="nav-item"> <a id="cocktail_btn" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
+                </ul>
             </div>
-        </nav>  
+        </nav> 
 
     </head>
 
     <body>
 
-        <div class="background">
+        <div class="background max_height">
 
             <!-- bootstrap grid layout for settings and visualisation -->
-            <div class="row">
+            <div class="row max_height">
 
                 <!-- settings for sorting visualisation -->
                 <div id=settings_box class="col-3 box">
@@ -64,8 +71,7 @@
                     <input  id="volume_slide" type="range" min="0" max="100" value="0" class="custom-range">
                     -->
 
-                    <button id="sort_btn" type="submit" class="btn btn-primary form-control form_distance"> Start sorting </button>
-                    
+                    <button id="sort_btn" type="submit" class="btn btn-primary form-control form_distance"> Start sorting </button>           
                     <button id="stop_btn" type="submit" class="btn btn-primary form-control form_distance"> Stop sorting </button>                
 
                     <label id='comp_label' class='form-control form_distance'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
