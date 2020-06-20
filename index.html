@@ -17,6 +17,7 @@
         <script src="scripts/sorting_visualizer.js"></script>
 
         <!-- bootstrap navbar for selection of sorting algorithm -->
+
         <nav id="second_nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #5941A9;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -45,13 +46,13 @@
 
     <body>
 
-        <div class="background max_height">
+        <div class="container-fluid">
 
             <!-- bootstrap grid layout for settings and visualisation -->
-            <div class="row max_height">
+            <div class="row">
 
-                <!-- settings for sorting visualisation -->
-                <div id=settings_box class="col-3 box">
+                <!-- settings for sorting visualis  ation -->
+                <div id=settings_box class="col-md-3 box max_height">
                     
                     <h2 id='sort_header'> BUBBLE SORT </h2>
 
@@ -78,13 +79,13 @@
                     <button id="sort_btn" type="submit" class="btn btn-primary form-control form_distance" data-translate='start_sorting'> Start sorting </button>           
                     <button id="stop_btn" type="submit" class="btn btn-primary form-control form_distance" data-translate='stop_sorting'> Stop sorting </button>                
 
-                    <label id='comp_label' class='form-control form_distance' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
-                    <label id='acc_label' class='form-control form_distance' data-translate='amount_array_accesses'> Amount array accesses: 0 </label>
+                    <label id='comp_label' readonly class='form-control-plaintext form_distance' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
+                    <label id='acc_label' class='form-control-plaintext form_distance' data-translate='amount_array_accesses'> Amount array accesses: 0 </label>
 
                 </div>
 
                 <!-- actual visualisation with svg placeholder -->
-                <div id=svg_box class="col box">
+                <div id=svg_box class="col-md box">
                   <svg id="bar_svg" xmlns="http://www.w3.org/2000/svg"></svg>
                 </div>
 
