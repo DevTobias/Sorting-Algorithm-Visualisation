@@ -28,10 +28,6 @@ body {
     min-height: 100vh;
 }
 
-.max_height {
-    height: 90vh;
-}
-
 label {
     color: var(--label_color);
 }
@@ -40,6 +36,22 @@ h2 {
     padding-top: 0.5em;
     color: var(--h2-color);
     padding-bottom: 2em;
+}
+
+.max_height {
+    height: 90vh;
+}
+
+
+.background {
+    margin: 1em;
+}   
+
+.box {
+    margin: 1em;
+    background: #ffffff;
+    background: var(--box-background-color);
+    border-radius: 5px;
 }
 
 #bar_svg {
@@ -57,12 +69,6 @@ h2 {
     color: var(--style_btn_hover-color);
 }
 
-.box {
-    margin: 1em;
-    background: #ffffff;
-    background: var(--box-background-color);
-    border-radius: 5px;
-}
 
 .form_distance {
     margin-bottom: 1em;
@@ -86,10 +92,6 @@ h2 {
 #sorting_nav {
     background-color: var(--sorting_nav-background-color);
 }
-
-.background {
-    margin: 1em;
-}   
 
 .dropdown-item.active, .dropdown-item:active {
     background-color: var(--dropdown_item_active-background-color);
