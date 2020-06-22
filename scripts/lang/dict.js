@@ -1,4 +1,12 @@
 var dictionary = {
+    'language': {
+        'de': 'Sprache',
+        'en': 'Language', 
+    },
+    'theme': {
+        'de': 'Thema',
+        'en': 'Theme', 
+    },
     'sorting_algorithm_visualisation': {
         'de': 'Visualisierung Sortieralgorithmen',
         'en': 'Sorting Algorithm Visualisation',

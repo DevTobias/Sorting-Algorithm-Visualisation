@@ -1,9 +1,30 @@
+:root {
+    --body-background-color: #F4F4F8;
+    --h2-color : #000000;
+    --label_color : #000000;
+    --box-background-color : #ffffff;
+    --sorting_nav-background-color : #177e89;
+
+    --style_btn-color : #ffffff;
+    --style_btn-border-color : #ffffff;
+    --style_btn_hover-background-color : #ffffff;
+    --style_btn_hover-color : #000000;
+
+    --btn_override-background-color : #177e89;
+    --btn_override-border-color : #177e89;
+    --btn_override_hover-background-color : #5bc0be;
+    --btn_override_hover-border-color : #5bc0be;   
+
+    --dropdown_item_active-background-color: #5bc0be;
+    --dropdown_menu-background-color: #ffffff;
+}
+
 * {
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
 body {
-    background-color: #F4F4F8;
+    background-color: var(--body-background-color);
     min-height: 100vh;
 }
 
@@ -11,11 +32,12 @@ body {
   height: 90vh;
 }
 
-h2, label {
-    color: #000000;
+label {
+    color: var(--label_color);
 }
 
 h2 {
+    color: var(--h2-color);
     padding-bottom: 2em;
 }
 
@@ -31,10 +53,21 @@ h2 {
     transform: scale(-1, -1);
 }
 
+#style_btn {
+    border-color: var(--style_btn-border-color);
+    color: var(--style_btn-color);
+    margin-left: 0.5em;
+}
+
+#style_btn:hover {
+    background-color: var(--style_btn_hover-background-color);
+    color: var(--style_btn_hover-color);
+}
+
 .box {
     padding: 1em;
     margin-right: 1em;
-    background: #ffffff;
+    background: var(--box-background-color);
     border-radius: 5px;
 }
 
@@ -42,11 +75,33 @@ h2 {
     margin-bottom: 1em;
 }
 
-.btn {
-    background-color: #5941A9;
-    border-color: #5941A9;
+.btn_override {
+    background-color: var(--btn_override-background-color);
+    border-color: var(--btn_override-border-color);
+}
+
+.btn_override:hover, .btn_override:visited, .btn_override:focus {
+    background-color: var(--btn_override_hover-background-color) !important;
+    border-color: var(--btn_override_hover-border-color) !important;   
+    box-shadow: none !important;
+}
+
+.btn:active {
+    transform: scale(98%);
+}
+
+#sorting_nav {
+    background-color: var(--sorting_nav-background-color);
 }
 
 .background {
     margin: 1em;
+}   
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--dropdown_item_active-background-color);
+}
+
+.dropdown-menu {
+    background-color: var(--dropdown_menu-background-color);
 }
