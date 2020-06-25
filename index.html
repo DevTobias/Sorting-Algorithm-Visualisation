@@ -15,8 +15,8 @@
         <script src="scripts/lang/dict.js"></script>
         <script src="scripts/lang/language_changer.js"></script>
         <script src="scripts/style/style_changer.js"></script>
-        <script src="scripts/sorting_algorithms.js"></script>
         <script src="scripts/sorting_visualizer.js" defer></script>
+        <script src="scripts/sorting_algorithms.js"></script>
 
         <!-- bootstrap navbar for selection of sorting algorithm -->
         <nav id="sorting_nav" class="navbar navbar-expand-lg navbar-dark">
@@ -48,7 +48,7 @@
 
     </head>
 
-    <body onresize="render_new_array()">
+    <body onresize="render()">
 
         <div class="container-fluid">
 
@@ -89,7 +89,7 @@
                     <input  id="volume_slide" type="range" min="0" max="100" value="0" class="custom-range">
                     -->
 
-                    <button id="sort_btn" type="submit" class="btn btn-primary btn_override form-control form_distance" data-translate='start_sorting'> Start sorting </button>           
+                    <button id="sort_btn" type="submit" onclick="start_sorting()" class="btn btn-primary btn_override form-control form_distance" data-translate='start_sorting'> Start sorting </button>           
                     <button id="stop_btn" type="submit" class="btn btn-primary btn_override form-control form_distance" data-translate='stop_sorting'> Stop sorting </button>                
 
                     <label id='comp_label' readonly class='form-control-plaintext form_distance' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>

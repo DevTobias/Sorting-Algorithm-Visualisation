@@ -143,20 +143,60 @@ class SortingVisualizer {
     
     }
 
-    swap(i, j) { this.perm_queue.enqueue(['swap', i, j]); }
-    compare(i, j) { this.perm_queue.enqueue(['comp', i, j]); }
-    compare_val(i, val) { this.perm_queue.enqueue(['comp_val', i, val]); }
-    replace(i, j) { this.perm_queue.enqueue(['replace', i, j]); }
-    replace_val(i, val) { this.perm_queue.enqueue(['replace_val', i, val]); }
+    swap(i, j) { 
+        this.perm_queue.enqueue(['swap', i, j]); 
+        
+        let temp_value = this.array[i];
+        this.array[i] = this.array[j];
+        this.array[j] = temp_value;
+    }
+
+    compare(i, j) { 
+        this.perm_queue.enqueue(['comp', i, j]); 
+    
+        if(this.array[i] > this.array[j]) return 1;
+        else if(this.array[i] < this.array[j]) return -1;
+        else return 0;
+    }
+
+    compare_val(i, val) { 
+        this.perm_queue.enqueue(['comp_val', i, val]); 
+    
+        if(this.array[i] > val) return 1;
+        else if(this.array[i] < val) return -1;
+        else return 0;
+    }
+    
+    replace(i, j) { 
+        this.perm_queue.enqueue(['replace', i, j]); 
+   
+        this.array[i] = this.array[j];
+    }
+    
+    replace_val(i, val) { 
+        this.perm_queue.enqueue(['replace_val', i, val]); 
+    
+        this.array[i] = val;
+    }
 
 }
 
 
 var visualizer = new SortingVisualizer();
 
+function render() {
+    visualizer.render();
+}
+
 function render_new_array() {
     visualizer.reload_settings();
     visualizer.render();
+}
+
+function start_sorting() {
+    SortingAlgorithms.bubble_sort();
+    visualizer.render();
+    console.log(visualizer.perm_queue);
 }
 
 $(function() {
