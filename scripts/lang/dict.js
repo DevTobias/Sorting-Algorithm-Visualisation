@@ -24,12 +24,36 @@ var dictionary = {
         'en': 'Random',
     },
     'ascending': {
-        'de': 'Ascending',
-        'en': 'Aufsteigend',
+        'de': 'Aufsteigend',
+        'en': 'Ascending',
+    },
+    'mostly_ascending': {
+        'de': 'Größtenteils aufsteigend',
+        'en': 'Mostly ascending',
     },
     'descending': {
-        'de': 'Descending',
-        'en': 'Absteigend',
+        'de': 'Absteigend',
+        'en': 'Descending',
+    },
+    'mostly_descending': {
+        'de': 'Größtenteils absteigend',
+        'en': 'Mostly descending',
+    },
+    'variety_of_keys': {
+        'de': 'Schlüsselvielfalt',
+        'en': 'Variety of keys',  
+    },
+    'all_unique': {
+        'de': 'Alle einzigartig',
+        'en': 'All unique',  
+    },
+    'many_unique': {
+        'de': 'Viele einzigartig',
+        'en': 'Many unique',  
+    },
+    'few_unique': {
+        'de': 'Wenige einzigartig',
+        'en': 'Few unique',  
     },
     'create_array': {
         'de': 'Feld erzeugen',
@@ -54,5 +78,5 @@ var dictionary = {
     'amount_array_accesses': {
         'de': 'Anzahl der Feldzugriffe : 0',
         'en': 'Amount array accesses: 0',  
-    }
+    },
 };

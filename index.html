@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="styles/lib/bootstrap/bootstrap-4.5.0.css">
         <script src="scripts/lib/jquery/jquery-3.5.1.js"></script>
         <script src="scripts/lib/bootstrap/bootstrap-4.5.0.js"></script>
+        <script src="scripts/lib/Queue.js"></script>
 
         <link rel="stylesheet" href="styles/main_style.css">
         <script src="scripts/lang/dict.js"></script>
@@ -47,7 +48,7 @@
 
     </head>
 
-    <body>
+    <body onresize="render_new_array()">
 
         <div class="container-fluid">
 
@@ -62,16 +63,23 @@
                     <label for='#arrsize_sel' data-translate="amount_of_elements"> Amount of elements </label>
                     <input id='arrsize_sel' class='form-control form_distance' type='number' value="50"/>
 
-                    <label for='#start_sel' data-translate="arrangement_of_elements"> Arrangement of elements </label>
-                    <select id='start_sel' class='form-control form_distance'>
+                    <label for='#arrangement_sel' data-translate="arrangement_of_elements"> Arrangement of elements </label>
+                    <select id='arrangement_sel' class='form-control form_distance'>
                         <option value='random' data-translate="random"> Random </option>
                         <option value='ascending' data-translate='ascending'> Ascending </option>
                         <option value='mostly_ascending' data-translate='mostly_ascending'> Mostly Ascending </option>
-                        <option value='descending' data-translate='mostly_ascending'> Descending </option>
+                        <option value='descending' data-translate='descending'> Descending </option>
                         <option value='mostly_descending' data-translate='mostly_descending'> Mostly Descending </option>
                     </select>
 
-                    <button id="create_btn" type="submit" class="btn btn-primary btn_override form-control form_distance" data-translate='create_array'> Create array </button>
+                    <label for='#key_sel' data-translate="variety_of_keys"> Variety of keys </label>
+                    <select id='key_sel' class='form-control form_distance'>
+                        <option value='all_unique' data-translate="all_unique"> All unique </option>
+                        <option value='many_unique' data-translate='many_unique'> Many unique </option>
+                        <option value='few_unique' data-translate='few_unique'> Few unique </option>
+                    </select>
+
+                    <button id="create_btn" type="submit" onclick="render_new_array()" class="btn btn-primary btn_override form-control form_distance" data-translate='create_array'> Create array </button>
                     
                     <label for='#interval_sel' data-translate='interval_of_sorting_steps'> Interval of sorting steps </label>
                     <input id='interval_sel' class='form-control form_distance' type='number' value="100"/>
