@@ -89,9 +89,10 @@
                     <input  id="volume_slide" type="range" min="0" max="100" value="0" class="custom-range">
                     -->
 
-                    <button id="sort_btn" type="submit" onclick="start_sorting()" class="btn btn-primary btn_override form-control form_distance" data-translate='start_sorting'> Start sorting </button>           
-                    <button id="stop_btn" type="submit" class="btn btn-primary btn_override form-control form_distance" data-translate='stop_sorting'> Stop sorting </button>                
-
+                    <button id="sort_btn" type="submit" onclick="start_sorting()" class="btn btn-primary btn_override form-control form_distance" data-translate='start_sorting'> Start sorting </button>     
+                    <button id="stop_btn" type="submit" onclick="stop_sorting()" class="btn btn-primary btn_override form-control form_distance btn_disabled" data-translate='pause_sorting'> Pause sorting </button>                
+                    <button id="resume_btn" type="submit" onclick="resume_sorting()" class="btn btn-primary btn_override form-control form_distance btn_disabled" data-translate='resume_sorting'> Resume sorting </button>           
+                    
                     <label id='comp_label' readonly class='form-control-plaintext form_distance' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
                     <label id='acc_label' class='form-control-plaintext form_distance' data-translate='amount_array_accesses'> Amount array accesses: 0 </label>
 

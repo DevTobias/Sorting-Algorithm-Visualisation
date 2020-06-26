@@ -67,9 +67,13 @@ var dictionary = {
         'de': 'Sortieren starten',
         'en': 'Start sorting',  
     },
-    'stop_sorting': {
-        'de': 'Sortieren stoppen',
-        'en': 'Stop sorting',  
+    'pause_sorting': {
+        'de': 'Sortieren pausieren',
+        'en': 'Pause sorting',  
+    },    
+    'resume_sorting': {
+        'de': 'Sortieren fortsetzen',
+        'en': 'Resume sorting',  
     },
     'amount_comparisons': {
         'de': 'Anzahl der Vergleiche: &thinsp;&thinsp;&thinsp; 0',

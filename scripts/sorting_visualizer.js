@@ -74,7 +74,7 @@ class SortingVisualizer {
 
     constructor() {
         this.DEFAULT_COLOR = '#1E1E38';
-        this.COMPARE_COLOR = '#2dad54';
+        this.COMPARE_COLOR = '#373768'; //2dad54
         this.SWAP_COLOR = '#E0544C';
 
         this.amount_elements; this.sorting_mode; this.key_mode;
@@ -84,8 +84,8 @@ class SortingVisualizer {
 
         this.perm_queue = new Queue();
 
-        this.fps = 2; this.fpsInterval; this.startTime;
-        this.now; this.then; this.elapsed;
+        this.fps = 10; this.fpsInterval; this.startTime;
+        this.now; this.then; this.elapsed; this.stop;
     }
 
     reload_settings() {
@@ -146,7 +146,27 @@ class SortingVisualizer {
     }
 
 
+    stop_animation() {
+        this.stop = true;         
+        
+        let perm = this.perm_queue.peek();
+        if(perm[0] == 'reset') {
+            let rect1 = document.getElementById('rect_' + perm[1]);
+            let rect2 = document.getElementById('rect_' + perm[2]);
+            rect1.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
+            rect2.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
+            this.perm_queue.dequeue();
+        }
+    }
+
     start_animation() {
+        this.perm_queue.clear();
+        SortingAlgorithms.cocktail_sort();
+        this.resume_sorting();
+    }
+
+    resume_sorting() {
+        this.stop = false;
         this.fpsInterval = 1000 / this.fps;
         this.then = Date.now();
         this.startTime = this.then;
@@ -154,14 +174,21 @@ class SortingVisualizer {
     }
 
     animate() {
-       requestAnimationFrame(()=>this.animate());
+        
+        if(!this.stop) {
+            requestAnimationFrame(()=>this.animate());
 
-        this.now = Date.now();
-        this.elapsed = this.now - this.then;
+            this.now = Date.now();
+            this.elapsed = this.now - this.then;
 
-        if (this.elapsed > this.fpsInterval) {
-            this.then = this.now - (this.elapsed % this.fpsInterval);
-            this.evaluate_permutation();
+            if (this.elapsed > this.fpsInterval) {
+                this.then = this.now - (this.elapsed % this.fpsInterval);
+                this.evaluate_permutation();
+            }
+
+            if(this.perm_queue.isEmpty()) {
+                this.stop = true;
+            }
         }
     }
 
@@ -171,30 +198,25 @@ class SortingVisualizer {
 
         switch(operation) {
 
-            case 'swap': {
+            case "swap": {
 
                 let rect1 = document.getElementById('rect_' + i);
                 let rect2 = document.getElementById('rect_' + j);
 
                 rect1.setAttributeNS(null, 'fill', this.SWAP_COLOR);
                 rect2.setAttributeNS(null, 'fill', this.SWAP_COLOR);
+                $('#rect_' + i).remove().appendTo('#bar_svg');
+                $('#rect_' + j).remove().appendTo('#bar_svg');
 
                 $(rect1).animate({ x: j * this.bar_width + this.distance * j}, this.fpsInterval);
                 $(rect2).animate({ x: i * this.bar_width + this.distance * i}, this.fpsInterval);
                 rect1.id = "rect_" + j; rect2.id = "rect_" + i;
-                
-                break;
 
-            } case 'r_swap': {
-
-                let rect1 = document.getElementById('rect_' + i);
-                let rect2 = document.getElementById('rect_' + j);
-                rect1.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
-                rect2.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
+                ArrayUtils.swap(this.array, i, j);
 
                 break;
 
-            } case 'comp': {
+            } case "comp": {
 
                 let rect1 = document.getElementById('rect_' + i);
                 let rect2 = document.getElementById('rect_' + j);
@@ -203,7 +225,42 @@ class SortingVisualizer {
 
                 break;
 
-            } case 'r_comp': {
+            } case "comp_val": {
+
+                let rect1 = document.getElementById('rect_' + i);
+                rect1.setAttributeNS(null, 'fill', this.COMPARE_COLOR);
+
+                break;
+
+            } case "replace": {
+
+                let rect1 = document.getElementById('rect_' + i);
+                let rect2 = document.getElementById('rect_' + j);
+                rect1.setAttributeNS(null, 'fill', this.SWAP_COLOR);
+                rect2.setAttributeNS(null, 'fill', this.COMPARE_COLOR);
+
+                //$(rect1).animate({ height: rect2.getAttribute('height')}, 1);
+                rect1.setAttribute('height', rect2.getAttribute('height'));
+
+                this.array[i] = this.array[j];
+
+                break;
+ 
+
+            } case "replace_val": {
+
+                let rect1 = document.getElementById('rect_' + i);
+                rect1.setAttributeNS(null, 'fill', this.SWAP_COLOR);
+
+                // $(rect1).animate({ height: j * this.bar_height}, this.fpsInterval);
+                rect1.setAttribute('height', j * this.bar_height);
+
+
+                this.array[i] = j;
+
+                break;
+
+            } case "reset": {
 
                 let rect1 = document.getElementById('rect_' + i);
                 let rect2 = document.getElementById('rect_' + j);
@@ -211,48 +268,54 @@ class SortingVisualizer {
                 rect2.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
 
                 break;
+
+            } case "reset_i": {
+
+                let rect1 = document.getElementById('rect_' + i);
+                rect1.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
+
+                break;
+
             }
 
         }
     }
 
-
-    swap(i, j) { 
+ 
+    swap(array, i, j) { 
         this.perm_queue.enqueue(['swap', i, j]); 
-        this.perm_queue.enqueue(['r_swap', i, j]); 
-        
-        let temp_value = this.array[i];
-        this.array[i] = this.array[j];
-        this.array[j] = temp_value;
+        this.perm_queue.enqueue(['reset', i, j]); 
+        ArrayUtils.swap(array, i, j);
     }
 
-    compare(i, j) { 
+    compare(array, i, j) { 
         this.perm_queue.enqueue(['comp', i, j]); 
-        this.perm_queue.enqueue(['r_comp', i, j]); 
+        this.perm_queue.enqueue(['reset', i, j]); 
 
-        if(this.array[i] > this.array[j]) return 1;
-        else if(this.array[i] < this.array[j]) return -1;
+        if(array[i] > array[j]) return 1;
+        else if(array[i] < array[j]) return -1;
         else return 0;
     }
 
-    compare_val(i, val) { 
+    compare_val(array, i, val) { 
         this.perm_queue.enqueue(['comp_val', i, val]); 
-    
-        if(this.array[i] > val) return 1;
-        else if(this.array[i] < val) return -1;
+        this.perm_queue.enqueue(['reset_i', i, 0]); 
+
+        if(array[i] > val) return 1;
+        else if(array[i] < val) return -1;
         else return 0;
     }
     
-    replace(i, j) { 
+    replace(array, i, j) { 
         this.perm_queue.enqueue(['replace', i, j]); 
-   
-        this.array[i] = this.array[j];
+        this.perm_queue.enqueue(['reset', i, j]); 
+        array[i] = array[j];
     }
     
-    replace_val(i, val) { 
+    replace_val(array, i, val) { 
         this.perm_queue.enqueue(['replace_val', i, val]); 
-    
-        this.array[i] = val;
+        this.perm_queue.enqueue(['reset_i', i, 0]); 
+        array[i] = val;
     }
 
 }
@@ -265,13 +328,31 @@ function render() {
 }
 
 function render_new_array() {
+    $("#resume_btn").addClass('btn_disabled');
+    $("#stop_btn").addClass('btn_disabled');
     visualizer.reload_settings();
     visualizer.render_array();
 }
 
 function start_sorting() {
-    SortingAlgorithms.bubble_sort();
+    $("#stop_btn").removeClass('btn_disabled');
+    $("#resume_btn").addClass('btn_disabled');
+    $("#create_btn").addClass('btn_disabled');
     visualizer.start_animation();
+}
+
+function stop_sorting() {
+    $("#resume_btn").removeClass('btn_disabled');
+    $("#create_btn").removeClass('btn_disabled');
+    $("#stop_btn").addClass('btn_disabled');
+    visualizer.stop_animation();
+}
+
+function resume_sorting() {
+    $("#resume_btn").addClass('btn_disabled');
+    $("#create_btn").addClass('btn_disabled');
+    $("#stop_btn").removeClass('btn_disabled');
+    visualizer.resume_sorting();
 }
 
 $(function() {

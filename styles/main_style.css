@@ -5,8 +5,6 @@
     --box-background-color : #ffffff;
     --sorting_nav-background-color : #1E1E38; 
 
-    /*177e89  5bc0be*/
-
     --style_btn-color : #ffffff;
     --style_btn-border-color : #ffffff;
     --style_btn_hover-background-color : #ffffff;
@@ -72,7 +70,6 @@ h2 {
     color: var(--style_btn_hover-color);
 }
 
-
 .form_distance {
     margin-bottom: 1em;
 }
@@ -81,6 +78,13 @@ h2 {
     background-color: var(--btn_override-background-color);
     border-color: var(--btn_override-border-color);
 }
+
+.btn_disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    pointer-events: none;
+  }
 
 .btn_override:hover, .btn_override:visited, .btn_override:focus {
     background-color: var(--btn_override_hover-background-color) !important;
