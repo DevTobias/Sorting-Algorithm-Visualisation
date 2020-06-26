@@ -59,9 +59,9 @@ var dictionary = {
         'de': 'Feld erzeugen',
         'en': 'Create array',       
     },
-    'interval_of_sorting_steps': {
-        'de': 'Intervall der Sortierschritte',
-        'en': 'Interval of sorting steps',  
+    'frames_per_second': {
+        'de': 'Bilder pro Sekunde',
+        'en': 'Frames per second',  
     },
     'start_sorting': {
         'de': 'Sortieren starten',

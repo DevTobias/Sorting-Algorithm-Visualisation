@@ -78,13 +78,20 @@ class SortingVisualizer {
         this.SWAP_COLOR = '#E0544C';
 
         this.amount_elements; this.sorting_mode; this.key_mode;
-        this.delay; this.sound_volume; this.array;
+        this.fps; this.sound_volume; this.array;
+
+        this.max_frequency = 1000; 
+
+        this.sorting_algorithm = "bubble_sort";
+
+        this.amount_accesses = 0;
+        this.amount_comparisons = 0;
 
         this.bar_height; this.bar_width; this.distance = 2;
 
         this.perm_queue = new Queue();
 
-        this.fps = 10; this.fpsInterval; this.startTime;
+        this.fpsInterval; this.startTime;
         this.now; this.then; this.elapsed; this.stop;
     }
 
@@ -92,7 +99,7 @@ class SortingVisualizer {
         this.amount_elements = $('#arrsize_sel').val();
         this.sorting_mode = $('#arrangement_sel').val();
         this.key_mode = $('#key_sel').val();
-        this.delay = $('#interval_sel').val();
+        this.fps = $('#interval_sel').val();
         this.sound_volume = $('#volume_slide').val();
         this.array = ArrayUtils.get_array(this.sorting_mode, this.key_mode, this.amount_elements); 
     }
@@ -145,23 +152,34 @@ class SortingVisualizer {
     
     }
 
-
     stop_animation() {
         this.stop = true;         
         
-        let perm = this.perm_queue.peek();
-        if(perm[0] == 'reset') {
-            let rect1 = document.getElementById('rect_' + perm[1]);
-            let rect2 = document.getElementById('rect_' + perm[2]);
-            rect1.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
-            rect2.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
-            this.perm_queue.dequeue();
+        if(!this.perm_queue.isEmpty) {
+            let perm = this.perm_queue.peek();
+            if(perm[0] == 'reset') {
+                let rect1 = document.getElementById('rect_' + perm[1]);
+                let rect2 = document.getElementById('rect_' + perm[2]);
+                rect1.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
+                rect2.setAttributeNS(null, 'fill', this.DEFAULT_COLOR);
+                this.perm_queue.dequeue();
+            }
         }
     }
 
     start_animation() {
+        this.fps = $('#interval_sel').val();
         this.perm_queue.clear();
-        SortingAlgorithms.cocktail_sort();
+        this.amount_accesses = 0; this.amount_comparisons = 0;
+
+        switch(this.sorting_algorithm) {
+            case "bubble_sort": SortingAlgorithms.bubble_sort(); break;
+            case "insertion_sort": SortingAlgorithms.insertion_sort(); break;
+            case "selection_sort": SortingAlgorithms.selection_sort(); break;
+            case "cocktail_sort": SortingAlgorithms.cocktail_sort(); break;
+            default: SortingAlgorithms.bubble_sort();
+        }
+
         this.resume_sorting();
     }
 
@@ -192,6 +210,27 @@ class SortingVisualizer {
         }
     }
 
+    print_information() {
+        if(current_lang == 'de') {
+            $('#comp_label').html('Anzahl der Vergleiche: &thinsp;&thinsp;&thinsp; ' + this.amount_comparisons);
+            $('#acc_label').html('Anzahl der Feldzugriffe : ' + this.amount_accesses);
+        } else if(current_lang == 'en') {
+            $('#comp_label').html('Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; ' + this.amount_comparisons);
+            $('#acc_label').html('Amount array accesses: ' + this.amount_accesses);
+        }
+    }
+
+    
+    play_sound(value) {
+        this.sound_volume = 5;
+        if(this.sound_volume != 0) {
+            let percent = value / this.amount_elements;
+            let frequency = percent * this.max_frequency;
+            playTone(frequency, 'sine', this.fpsInterval / 1000, this.sound_volume); 
+        }
+    } 
+
+
     evaluate_permutation() {
         let perm = this.perm_queue.dequeue();
         let operation = perm[0]; let i = perm[1]; let j = perm[2];
@@ -212,6 +251,12 @@ class SortingVisualizer {
                 $(rect2).animate({ x: i * this.bar_width + this.distance * i}, this.fpsInterval);
                 rect1.id = "rect_" + j; rect2.id = "rect_" + i;
 
+                // this.play_sound(this.array[i]);
+                // this.play_sound(this.array[j]);
+
+                this.amount_accesses += 4;
+                this.print_information();
+
                 ArrayUtils.swap(this.array, i, j);
 
                 break;
@@ -223,12 +268,18 @@ class SortingVisualizer {
                 rect1.setAttributeNS(null, 'fill', this.COMPARE_COLOR);
                 rect2.setAttributeNS(null, 'fill', this.COMPARE_COLOR);
 
+                this.amount_accesses += 2; this.amount_comparisons += 1;
+                this.print_information();
+
                 break;
 
             } case "comp_val": {
 
                 let rect1 = document.getElementById('rect_' + i);
                 rect1.setAttributeNS(null, 'fill', this.COMPARE_COLOR);
+
+                this.amount_accesses += 1; this.amount_comparisons += 1;
+                this.print_information();
 
                 break;
 
@@ -241,6 +292,9 @@ class SortingVisualizer {
 
                 //$(rect1).animate({ height: rect2.getAttribute('height')}, 1);
                 rect1.setAttribute('height', rect2.getAttribute('height'));
+
+                this.amount_accesses += 2;
+                this.print_information();
 
                 this.array[i] = this.array[j];
 
@@ -255,6 +309,8 @@ class SortingVisualizer {
                 // $(rect1).animate({ height: j * this.bar_height}, this.fpsInterval);
                 rect1.setAttribute('height', j * this.bar_height);
 
+                this.amount_accesses += 1;
+                this.print_information();
 
                 this.array[i] = j;
 
@@ -281,7 +337,7 @@ class SortingVisualizer {
         }
     }
 
- 
+
     swap(array, i, j) { 
         this.perm_queue.enqueue(['swap', i, j]); 
         this.perm_queue.enqueue(['reset', i, j]); 
@@ -354,6 +410,46 @@ function resume_sorting() {
     $("#stop_btn").removeClass('btn_disabled');
     visualizer.resume_sorting();
 }
+
+function clear_actives() {
+    stop_sorting();
+    $('#bubble_btn').removeClass('active');
+    $('#insert_btn').removeClass('active');
+    $('#select_btn').removeClass('active');   
+    $('#cocktail_btn').removeClass('active');   
+
+    visualizer.stop_animation(); 
+    $("#resume_btn").addClass('btn_disabled');
+}
+
+function select_bubblesort() {
+    visualizer.sorting_algorithm = "bubble_sort";
+    clear_actives();
+    $('#bubble_sort').addClass('active');
+    $('#sort_header').html("BUBBLE SORT");   
+}
+
+function select_insertionsort() {   
+    visualizer.sorting_algorithm = "insertion_sort";
+    clear_actives();
+    $('#insert_btn').addClass('active');
+    $('#sort_header').html("INSERTION SORT");  
+}
+
+function select_selectionsort() {
+    visualizer.sorting_algorithm = "selection_sort";
+    clear_actives();
+    $('#select_btn').addClass('active');
+    $('#sort_header').html("SELECTION SORT");   
+}
+
+function select_cocktailsort() {
+    visualizer.sorting_algorithm = "cocktail_sort";
+    clear_actives();
+    $('#cocktail_btn').addClass('active');
+    $('#sort_header').html("COCKTAIL SORT");   
+}
+
 
 $(function() {
     render_new_array();

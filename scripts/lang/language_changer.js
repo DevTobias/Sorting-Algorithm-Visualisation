@@ -1,4 +1,4 @@
-let current_lang = 'en';
+var current_lang = 'en';
 
 function translate() {
     $("[data-translate]").each(function(){

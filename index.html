@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="styles/lib/bootstrap/bootstrap-4.5.0.css">
         <script src="scripts/lib/jquery/jquery-3.5.1.js"></script>
         <script src="scripts/lib/bootstrap/bootstrap-4.5.0.js"></script>
+
         <script src="scripts/lib/Queue.js"></script>
+        <script src="scripts/lib/simpleTones.js"></script>
 
         <link rel="stylesheet" href="styles/main_style.css">
         <script src="scripts/lang/dict.js"></script>
@@ -26,10 +28,10 @@
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-                    <li class="nav-item"> <a id="bubble_btn" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
-                    <li class="nav-item"> <a id="insert_btn" class="nav-link" href="#"> INSERTION SORT </a> </li>
-                    <li class="nav-item"> <a id="select_btn" class="nav-link" href="#"> SELECTION SORT </a> </li>
-                    <li class="nav-item"> <a id="cocktail_btn" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
+                    <li class="nav-item"> <a id="bubble_btn" onclick="select_bubblesort()" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
+                    <li class="nav-item"> <a id="insert_btn" onclick="select_insertionsort()" class="nav-link" href="#"> INSERTION SORT </a> </li>
+                    <li class="nav-item"> <a id="select_btn" onclick="select_selectionsort()" class="nav-link" href="#"> SELECTION SORT </a> </li>
+                    <li class="nav-item"> <a id="cocktail_btn" onclick="select_cocktailsort()" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
                 </ul>
                 <ul class="navbar-nav my-2 my-md-0">
                     <li class="nav-item dropleft">            
@@ -81,8 +83,8 @@
 
                     <button id="create_btn" type="submit" onclick="render_new_array()" class="btn btn-primary btn_override form-control form_distance" data-translate='create_array'> Create array </button>
                     
-                    <label for='#interval_sel' data-translate='interval_of_sorting_steps'> Interval of sorting steps </label>
-                    <input id='interval_sel' class='form-control form_distance' type='number' value="100"/>
+                    <label for='#interval_sel' data-translate='frames_per_second'> Frames per second </label>
+                    <input id='interval_sel' class='form-control form_distance' type='number' value="5"/>
 
                     <!--
                     <label for="#volume_slide">Lautstärke</label>
