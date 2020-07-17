@@ -73,4 +73,33 @@ class SortingAlgorithms {
         } 
     } 
 
+    static comb_sort() { 
+
+        function get_next_gap(gap) { 
+            gap = Math.trunc((gap * 10) / 13); 
+            if (gap < 1) return 1; 
+            return gap; 
+        } 
+
+        let n = visualizer.array.length;
+        let array = visualizer.array.slice();
+        let gap = n; 
+        let swapped = true; 
+
+        while (gap != 1 || swapped == true) { 
+            gap = get_next_gap(gap); 
+            swapped = false; 
+  
+            for (let i = 0; i < n - gap; ++i) { 
+                console.log(i + gap);
+                if (visualizer.compare(array, i, i + gap) > 0) { 
+                    visualizer.swap(array, i, i + gap);
+                    swapped = true; 
+                } 
+            } 
+        } 
+
+        console.log(array);
+    } 
+
 }

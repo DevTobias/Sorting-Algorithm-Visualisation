@@ -177,6 +177,7 @@ class SortingVisualizer {
             case "insertion_sort": SortingAlgorithms.insertion_sort(); break;
             case "selection_sort": SortingAlgorithms.selection_sort(); break;
             case "cocktail_sort": SortingAlgorithms.cocktail_sort(); break;
+            case "comb_sort": SortingAlgorithms.comb_sort(); break;
             default: SortingAlgorithms.bubble_sort();
         }
 
@@ -229,7 +230,6 @@ class SortingVisualizer {
             playTone(frequency, 'sine', this.fpsInterval / 1000, this.sound_volume); 
         }
     } 
-
 
     evaluate_permutation() {
         let perm = this.perm_queue.dequeue();
@@ -417,6 +417,7 @@ function clear_actives() {
     $('#insert_btn').removeClass('active');
     $('#select_btn').removeClass('active');   
     $('#cocktail_btn').removeClass('active');   
+    $('#comb_btn').removeClass('active');   
 
     visualizer.stop_animation(); 
     $("#resume_btn").addClass('btn_disabled');
@@ -450,6 +451,12 @@ function select_cocktailsort() {
     $('#sort_header').html("COCKTAIL SORT");   
 }
 
+function select_combsort() {
+    visualizer.sorting_algorithm = "comb_sort";
+    clear_actives();
+    $('#comb_btn').addClass('active');
+    $('#sort_header').html("COMB SORT");   
+}
 
 $(function() {
     render_new_array();
