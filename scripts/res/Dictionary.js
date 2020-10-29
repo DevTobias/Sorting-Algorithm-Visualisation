@@ -1,7 +1,7 @@
-var dictionary = {
+const dictionary = {
     'language': {
-        'de': 'Sprache',
-        'en': 'Language', 
+        'de': ' Sprache',
+        'en': ' Language', 
     },
     'theme': {
         'de': 'Thema',
@@ -58,6 +58,14 @@ var dictionary = {
     'create_array': {
         'de': 'Feld erzeugen',
         'en': 'Create array',       
+    },
+    'swap_animation': {
+        'de': 'Tauschanimation',
+        'en': 'Swap animation',  
+    },
+    'color_animation': {
+        'de': 'Farbanimation',
+        'en': 'Color animation',  
     },
     'frames_per_second': {
         'de': 'Bilder pro Sekunde',

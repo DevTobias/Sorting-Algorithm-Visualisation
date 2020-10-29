@@ -11,16 +11,23 @@
         <script src="scripts/lib/bootstrap/bootstrap-4.5.0.js"></script>
 
         <script src="scripts/lib/Queue.js"></script>
-        <script src="scripts/lib/simpleTones.js"></script>
+        <!-- <script src="scripts/lib/simpleTones.js"></script> -->
 
-        <link rel="stylesheet" href="styles/main_style.css">
-        <script src="scripts/lang/dict.js"></script>
-        <script src="scripts/lang/language_changer.js"></script>
-        <script src="scripts/style/style_changer.js"></script>
-        <script src="scripts/sorting_visualizer.js" defer></script>
-        <script src="scripts/sorting_algorithms.js"></script>
+        <link rel="stylesheet" href="styles/Index.css">
 
-        <!-- bootstrap navbar for selection of sorting algorithm -->
+        <!-- Include Javascript resources -->
+        <script src="scripts/res/Dictionary.js"></script>
+        <script src="scripts/res/ColorPalette.js"></script>
+
+        <!-- Include Javascript -->
+        <script src="scripts/LanguageChanger.js"></script>
+        <script src="scripts/StyleChanger.js"></script>
+        <script src="scripts/ArrayUtils.js"></script>
+        <script src="scripts/SortingVisualizer.js"></script>
+        <script src="scripts/SortingAlgorithms.js"></script>
+        <script src="scripts/Index.js" defer></script>
+
+        <!-- Bootstrap navbar for selection of sorting algorithm -->
         <nav id="sorting_nav" class="navbar navbar-expand-lg navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,80 +35,123 @@
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-                    <li class="nav-item"> <a id="bubble_btn" onclick="select_bubblesort()" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
-                    <li class="nav-item"> <a id="insert_btn" onclick="select_insertionsort()" class="nav-link" href="#"> INSERTION SORT </a> </li>
-                    <li class="nav-item"> <a id="select_btn" onclick="select_selectionsort()" class="nav-link" href="#"> SELECTION SORT </a> </li>
-                    <li class="nav-item"> <a id="cocktail_btn" onclick="select_cocktailsort()" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
-                    <li class="nav-item"> <a id="comb_btn" onclick="select_combsort()" class="nav-link" href="#"> COMB SORT </a> </li>
+                    <li class="nav-item"> <a id="bubble_btn" onclick="SelectBubblesort()" class="nav-link active" href="#"> BUBBLE SORT </a> </li>
+                    <li class="nav-item"> <a id="insert_btn" onclick="SelectInsertionsort()" class="nav-link" href="#"> INSERTION SORT </a> </li>
+                    <li class="nav-item"> <a id="select_btn" onclick="SelectSelectionsort()" class="nav-link" href="#"> SELECTION SORT </a> </li>
+                    <li class="nav-item"> <a id="cocktail_btn" onclick="SelectCocktailsort()" class="nav-link" href="#"> COCKTAIL SORT </a> </li>
+                    <li class="nav-item"> <a id="comb_btn" onclick="SelectCombsort()" class="nav-link" href="#"> COMB SORT </a> </li>
                 </ul>
                 <ul class="navbar-nav my-2 my-md-0">
                     <li class="nav-item dropleft">            
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-translate="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Language </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item active" id="drop_english" onclick="english_click()" href="#"> English </a>
-                            <a class="dropdown-item" id="drop_german" onclick="german_click()" href="#"> Deutsch </a>
+                            <a class="dropdown-item active" id="drop_english" onclick="TranslateEnglish()" href="#"> English </a>
+                            <a class="dropdown-item" id="drop_german" onclick="TranslateGerman()" href="#"> Deutsch </a>
                         </div>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-md-0"></form>
-                    <button id="style_btn" onclick="style_btn_click()" class="btn btn-outline-light" data-translate="theme" type="submit"> Theme </button>
+                    <button id="style_btn" onclick="ChangeStyle()" class="btn btn-outline-light" data-translate="theme" type="submit"> Theme </button>
                 </form>
             </div>
         </nav> 
 
     </head>
 
-    <body onresize="render()">
+    <body onresize="Render()">
 
         <div class="container-fluid">
 
-            <!-- bootstrap grid layout for settings and visualisation -->
+            <!-- Bootstrap grid layout for settings and visualisation -->
             <div class="row">
 
-                <!-- settings for sorting visualis  ation -->
-                <div id=settings_box class="col-md-3 box max_height">
+                <!-- Settings for sorting visualisation -->
+                <div id=settings_box class="col-md-3 box max_height overflow-auto">
                     
+                    <!-- Sorting Algorithm - Header -->
                     <h2 id='sort_header'> BUBBLE SORT </h2>
 
-                    <label for='#arrsize_sel' data-translate="amount_of_elements"> Amount of elements </label>
-                    <input id='arrsize_sel' class='form-control form_distance' type='number' value="50"/>
+                    <!-- Amount elements - Select -->
+                    <div class="form_distance">
+                        <label for='arrsize_sel' data-translate="amount_of_elements"> Amount of elements </label>
+                        <input id='arrsize_sel' class='form-control' type='number' value="25"/>
+                    </div>
 
-                    <label for='#arrangement_sel' data-translate="arrangement_of_elements"> Arrangement of elements </label>
-                    <select id='arrangement_sel' class='form-control form_distance'>
-                        <option value='random' data-translate="random"> Random </option>
-                        <option value='ascending' data-translate='ascending'> Ascending </option>
-                        <option value='mostly_ascending' data-translate='mostly_ascending'> Mostly Ascending </option>
-                        <option value='descending' data-translate='descending'> Descending </option>
-                        <option value='mostly_descending' data-translate='mostly_descending'> Mostly Descending </option>
-                    </select>
+                    <!-- Arrangement of elements - Select -->
+                    <div class="form_distance">
+                        <label for='arrangement_sel' data-translate="arrangement_of_elements"> Arrangement of elements </label>
+                        <select id='arrangement_sel' class='form-control'>
+                            <option value='RANDOM' data-translate="random"> Random </option>
+                            <option value='ASCENDING' data-translate='ascending'> Ascending </option>
+                            <option value='MAINLY_ASCENDING' data-translate='mostly_ascending'> Mostly Ascending </option>
+                            <option value='DESCENDING' data-translate='descending'> Descending </option>
+                            <option value='MAINLY_DESCENDING' data-translate='mostly_descending'> Mostly Descending </option>
+                        </select>
+                    </div>
 
-                    <label for='#key_sel' data-translate="variety_of_keys"> Variety of keys </label>
-                    <select id='key_sel' class='form-control form_distance'>
-                        <option value='all_unique' data-translate="all_unique"> All unique </option>
-                        <option value='many_unique' data-translate='many_unique'> Many unique </option>
-                        <option value='few_unique' data-translate='few_unique'> Few unique </option>
-                    </select>
+                    <!-- Variety of Keys - Input -->
+                    <div class="form_distance">
+                        <label for='key_sel' data-translate="variety_of_keys"> Variety of keys </label>
+                        <select id='key_sel' class='form-control'>
+                            <option value='ALL_UNIQUE' data-translate="all_unique"> All unique </option>
+                            <option value='MANY_UNIQUE' data-translate='many_unique'> Many unique </option>
+                            <option value='FEW_UNIQUE' data-translate='few_unique'> Few unique </option>
+                        </select>
+                    </div>
 
-                    <button id="create_btn" type="submit" onclick="render_new_array()" class="btn btn-primary btn_override form-control form_distance" data-translate='create_array'> Create array </button>
-                    
-                    <label for='#interval_sel' data-translate='frames_per_second'> Frames per second </label>
-                    <input id='interval_sel' class='form-control form_distance' type='number' value="5"/>
+                    <!-- Create array - Button -->
+                    <div class="form_distance">
+                        <button id="create_btn" type="submit" onclick="RenderNewArray()" class="btn btn-primary btn_override form-control" data-translate='create_array'> Create array </button>
+                    </div>
+                     
+                    <!-- Animation config - Checkbox -->
+                    <div class="form_distance">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="swap_ani_cb" value="option1" onclick="ReloadAnimationSettings()">
+                            <label data-translate="swap_animation" class="form-check-label" for="swap_ani_cb"> Swap Animation </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="checkbox" id="color_ani_cb" value="option2" onclick="ReloadAnimationSettings()">
+                          <label data-translate="color_animation" class="form-check-label" for="color_ani_cb"> Color Animation </label>
+                        </div>
+                    </div>
+
+                    <!-- Intervall - Selection -->
+                    <div class="form_distance" onkeyup="ReloadFPSSettings()">
+                        <label for='interval_sel' data-translate='frames_per_second'> Frames per second </label>
+                        <input id='interval_sel' class='form-control' type='number' value="5"/>
+                    </div>
 
                     <!--
                     <label for="#volume_slide">Lautstärke</label>
                     <input  id="volume_slide" type="range" min="0" max="100" value="0" class="custom-range">
                     -->
 
-                    <button id="sort_btn" type="submit" onclick="start_sorting()" class="btn btn-primary btn_override form-control form_distance" data-translate='start_sorting'> Start sorting </button>     
-                    <button id="stop_btn" type="submit" onclick="stop_sorting()" class="btn btn-primary btn_override form-control form_distance btn_disabled" data-translate='pause_sorting'> Pause sorting </button>                
-                    <button id="resume_btn" type="submit" onclick="resume_sorting()" class="btn btn-primary btn_override form-control form_distance btn_disabled" data-translate='resume_sorting'> Resume sorting </button>           
+                    <!-- Start sorting - Button -->
+                    <div class="form_distance">
+                        <button id="sort_btn" type="submit" onclick="StartSorting()" class="btn btn-primary btn_override form-control" data-translate='start_sorting'> Start sorting </button>     
+                    </div>
                     
-                    <label id='comp_label' readonly class='form-control-plaintext form_distance' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
-                    <label id='acc_label' class='form-control-plaintext form_distance' data-translate='amount_array_accesses'> Amount array accesses: 0 </label>
+                    <!-- Stop sorting - Button -->
+                    <div class="form_distance">
+                        <button id="stop_btn" type="submit" onclick="StopSorting()" class="btn btn-primary btn_override form-control btn_disabled" data-translate='pause_sorting'> Pause sorting </button>                
+                    </div>
+                    
+                    <!-- Resume sorting - Button -->                 
+                    <div class="form_distance">
+                        <button id="resume_btn" type="submit" onclick="ResumeAnimation()" class="btn btn-primary btn_override form-control btn_disabled" data-translate='resume_sorting'> Resume sorting </button>           
+                    </div>            
+                                        
+                    <!-- Sorting information - Label -->                 
+                    <div class="form_distance">
+                        <label id='comp_label' readonly class='form-control-plaintext' data-translate='amount_comparisons'> Amount comparisons:  &thinsp;&thinsp;&thinsp;&thinsp; 0 </label>
 
+                        <label id='acc_label' class='form-control-plaintext' data-translate='amount_array_accesses'> Amount array accesses: 0 </label>
+                    </div>
                 </div>
 
-                <!-- actual visualisation with svg placeholder -->
+                <!-- Actual visualisation with svg placeholder -->
                 <div id=svg_box class="col-md box">
                   <svg id="bar_svg" xmlns="http://www.w3.org/2000/svg"></svg>
                 </div>
